@@ -23,6 +23,7 @@ Building a low-level simulator in raw Assembly requires control over hardware re
 ## Project Structure
 
 ```text
+cache-emulator-x86/
 ├── img/
 │   └── exec_demo.gif        # Visual execution preview
 ├── src/
