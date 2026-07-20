@@ -2,6 +2,8 @@
 
 A robust, low-level cache memory simulator written in x86-64 NASM Assembly. This project emulates a direct-mapped cache architecture and strictly adheres to standard Linux ABI conventions.
 
+> **Academic Context:** Developed as an engineering project for the **Computer Systems Architecture** (_Arquitetura de Sistemas Computacionais_) course, within the BSc in Software Engineering program at the **Faculty of Sciences of the University of Lisbon** (FCUL), 2024.
+
 ## Technical Specifications
 
 - **Architecture:** Direct-mapped cache simulation.
@@ -49,7 +51,7 @@ gcc -no-pie cache_emulator.o biblioteca.o -o cache_emulator -nostartfiles -fPIE 
 
 ### Controls & Simulation Flow
 
-Advance/Exit: Press q to progress through the memory access cycles.
+**Advance/Exit**: Press `q` to progress through the memory access cycles.
 
 ## Visual Demonstration
 
@@ -72,4 +74,4 @@ Operation | Index | Tag   | Status/Result
 
 This deterministic logging ensures the core Assembly logic can be thoroughly tested and verified against expected architectural hardware behavior.
 
-Note on Academic Integrity & IP: The external object file (`biblioteca.o`) is omitted from this repository to protect intellectual property guidelines and strictly comply with university academic policies.
+**Note on Academic Integrity & IP**: The external object file (`biblioteca.o`) is omitted from this repository to protect intellectual property guidelines and strictly comply with university academic policies.
