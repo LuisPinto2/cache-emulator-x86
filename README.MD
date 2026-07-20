@@ -2,7 +2,7 @@
 
 A robust, low-level cache memory simulator written in x86-64 NASM Assembly. This project emulates a direct-mapped cache architecture and strictly adheres to standard Linux ABI conventions.
 
-> **Academic Context:** Developed as an engineering project for the **Computer Systems Architecture** (_Arquitetura de Sistemas Computacionais_) course, within the BSc in Software Engineering program at the **Faculty of Sciences of the University of Lisbon** (FCUL), 2024.
+> **Academic Context & Portfolio Migration:** Developed in 2024 as a core engineering project for the **Computer Systems Architecture** (_Arquitetura de Sistemas Computacionais_) course, within the BSc in Software Engineering program at the **Faculty of Sciences of the University of Lisbon** (FCUL). The code was migrated and re-factored for this repository in July 2026 to ensure long-term portfolio preservation, clean documentation, and compliance with industry standards.
 
 ## Technical Specifications
 
@@ -22,16 +22,46 @@ Building a low-level simulator in raw Assembly requires control over hardware re
 - **State Optimization & Control Flow:** Re-engineered the conditional branch logic to handle multi-argument processing efficiently. Shifted critical execution loop counters from volatile registers to callee-saved registers (`r14`, `r15`), successfully resolving segmentation faults and avoiding redundant system calls.
 - **Memory Isolation:** Implemented precise bit-masking operations (isolating the 10-bit tag, 4-bit index, and 2-bit offset) to strictly prevent any data contamination within the simulated direct-mapped structure.
 
+## Architectural Requirements & Implementation Decisions
+
+The architectural specifications for this emulator were guided by the course requirements, focusing on implementing a hardware-accurate model using software constraints.
+
+### 1. Cache Constraints & Specifications (Project Requirements)
+
+The emulator adheres strictly to the architectural design defined in the project specification:
+
+- **Direct-Mapped Cache:** A hardware-accurate model where each physical memory address maps to a single cache line.
+- **Address Space:** A 16-bit address layout, segmented into a **10-bit Tag** (block identification), a **4-bit Index** (mapping to the $2^4 = 16$ cache slots), and a **2-bit Offset** (identifying the specific byte within a 4-byte block).
+
+### 2. Low-Level Implementation Decisions (Developer's Design)
+
+While the structural constraints were predefined, the logic to handle them was custom-engineered at the processor level to optimize performance and stability:
+
+- **Bit-Masking & Bit-Shifting:** To cleanly isolate the address subcomponents without high-level abstractions, logical masks (`AND` operations with specific hexadecimal values) and bitwise right-shifts (`SHR`) were implemented to extract and realign the _Tag_ and _Index_ fields efficiently.
+- **Strict System V AMD64 ABI Compliance:** Because the project required integration with a proprietary pre-compiled external object (`biblioteca.o`), exceptional care was taken to maintain standard Linux x86-64 calling conventions. This involved manually safeguarding _callee-saved_ registers (`r12` - `r15`) via the _Stack_ and strictly enforcing a 16-byte _Stack_ alignment prior to execution loops to eliminate any risk of runtime segmentation faults.
+
+## Technical Challenges & Resolution
+
+### 1. Pointer Aritmetic and Array Offsets in Assembly
+
+- **The Problem:** Accessing specific cache lines and fields required manual byte-offset calculations based on the structural size of each cache line entry.
+- **The Resolution:** Implemented effective address calculations using scaled indexing (e.g., `[base + index * scale]`) to calculate automatically target memory locations without adding overhead cycles.
+
+### 2. Black-Box Integration & Iterative Debugging
+
+- **The Problem:** Linking with the proprietary, pre-compiled `biblioteca.o` meant that the internal execution was completely opaque. Without access to the library's source code, early logic bugs or subtle stack misalignments were difficult to track using standard debugging methods.
+- **The Resolution:** Resolved this through a highly iterative process. By making incremental code changes, running the execution cycles, and closely observing how the application responded to different memory inputs over time, I systematically isolated bugs and aligned my Assembly logic with the library's requirements.
+
 ## Project Structure
 
 ```text
 cache-emulator-x86/
 ├── img/
-│   └── exec_demo.gif        # Visual execution preview
+│   └── exec_demo.gif             # Visual execution preview
 ├── src/
-│   └── memoria_cache.asm    # Core emulator logic and ABI interface
-├── .gitignore               # Build and environment exclusions
-└── README.md                # Project documentation
+│   └── cache-emulator-x86.asm    # Core emulator logic and ABI interface
+├── .gitignore                    # Build and environment exclusions
+└── README.md                     # Project documentation
 ```
 
 ## Compilation and Execution
@@ -45,8 +75,8 @@ nasm -f elf64 -g -F dwarf src/cache-emulator-x86.asm -o cache_emulator.o
 # Link with the external library
 gcc -no-pie cache_emulator.o biblioteca.o -o cache_emulator -nostartfiles -fPIE -no-pie -lncurses
 
-# Run the simulator (Example)
-./cache_simulator Bb @b
+# Run the emulator (Example)
+./cache_emulator Bb @b
 ```
 
 ### Controls & Simulation Flow
