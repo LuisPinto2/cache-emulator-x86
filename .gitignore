@@ -1,0 +1,10 @@
+# Ignore executables and object files
+*.o
+cache_emulator
+operation_log.txt
+
+# Ignore Copyright protected files
+demo.asm
+
+.DS_Store
+.vscode/
