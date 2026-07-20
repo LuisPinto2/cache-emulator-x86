@@ -1,5 +1,10 @@
 # x86-64 NASM Cache Emulator
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Academic Project](https://img.shields.io/badge/Academic--Project-FCUL--2024-blue)](#academic-context--portfolio-migration)
+[![Language](https://img.shields.io/badge/Language-x86--64%20NASM%20Assembly-red)](#technical-specifications)
+[![Focus](https://img.shields.io/badge/Focus-Systems%20Architecture%20%7C%20ABI%20Compliance-orange)](#engineering-challenges--optimizations)
+
 A robust, low-level cache memory simulator written in x86-64 NASM Assembly. This project emulates a direct-mapped cache architecture and strictly adheres to standard Linux ABI conventions.
 
 <p align="center">
