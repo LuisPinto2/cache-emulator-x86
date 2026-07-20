@@ -42,7 +42,7 @@ While the structural constraints were predefined, the logic to handle them was c
 
 ## Technical Challenges & Resolution
 
-### 1. Pointer Aritmetic and Array Offsets in Assembly
+### 1. Pointer Arithmetic and Array Offsets in Assembly
 
 - **The Problem:** Accessing specific cache lines and fields required manual byte-offset calculations based on the structural size of each cache line entry.
 - **The Resolution:** Implemented effective address calculations using scaled indexing (e.g., `[base + index * scale]`) to calculate automatically target memory locations without adding overhead cycles.
@@ -66,7 +66,9 @@ cache-emulator-x86/
 
 ## Compilation and Execution
 
-This project interfaces with an external static library (`biblioteca.o`) for display routines.
+This project relies on a proprietary university object file (`biblioteca.o`) which provided the core back-end.
+
+To comply with FCUL's intellectual property guidelines, this file is not included. Therefore, the repository serves as a **code showcase** and cannot be compiled out-of-the-box without the university's environment.
 
 ```bash
 # Assemble the source code
@@ -110,5 +112,5 @@ This deterministic logging ensures the core Assembly logic can be thoroughly tes
 
 This repository is published purely for portfolio and educational demonstration purposes.
 
-- **For current students:** Copying or reproducing parts of this code for academic assignments violates the academic integrity regulations of the Faculty of Sciences of the University of Lisbon (FCUL).
+- **For current students**: While the _MIT License_ legally grants permission to modify and distribute this software, using or reproducing any part of this code for official academic assignments strictly violates the Academic Integrity Regulations of the Faculty of Sciences of the University of Lisbon (FCUL) and constitutes plagiarism.
 - The author holds no responsibility for any misuse or academic misconduct committed by third parties.
