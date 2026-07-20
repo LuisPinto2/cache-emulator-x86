@@ -74,4 +74,11 @@ Operation | Index | Tag   | Status/Result
 
 This deterministic logging ensures the core Assembly logic can be thoroughly tested and verified against expected architectural hardware behavior.
 
+## Academic Integrity Notice
+
 **Note on Academic Integrity & IP**: The external object file (`biblioteca.o`) is omitted from this repository to protect intellectual property guidelines and strictly comply with university academic policies.
+
+This repository is published purely for portfolio and educational demonstration purposes.
+
+- **For current students:** Copying or reproducing parts of this code for academic assignments violates the academic integrity regulations of the Faculty of Sciences of the University of Lisbon (FCUL).
+- The author holds no responsibility for any misuse or academic misconduct committed by third parties.
